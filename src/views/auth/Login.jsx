@@ -1,17 +1,27 @@
 import React, { useState } from 'react';
 import { FiInfo } from 'react-icons/fi'; // Import info icon from react-icons
-import { Link } from 'react-router-dom';
-import { loginUser } from '../../controllers/userControler';
+import { Link, useNavigate } from 'react-router-dom';
+import useAuthActions from '../../controllers/userControler';
+import { useSelector } from 'react-redux';
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const {isAuthenticated , user} = useSelector(state => state.user)
+
+  const {loginUser } = useAuthActions()
+
+  const navigate = useNavigate()
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const res = loginUser({email , password})
-    console.log(res);
     
+    console.log(res);
+    if(res.success){
+        navigate('/dashboard')
+    }
   };
 
   return (

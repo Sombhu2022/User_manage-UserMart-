@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { registerUser } from "../../controllers/userControler";
+import { Link, useNavigate } from "react-router-dom";
+import useAuthActions from "../../controllers/userControler";
 
 function Register() {
   const [name, setName] = useState("");
@@ -10,6 +10,10 @@ function Register() {
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [agreed, setAgreed] = useState(false);
+
+  const navigate = useNavigate()
+
+  const { registerUser } = useAuthActions()
 
   useEffect(() => {
 
@@ -36,8 +40,7 @@ function Register() {
         longitude,
       })
 
-
-      console.log(res);
+    if(res.success) navigate('/dashboard')
       
   };
 

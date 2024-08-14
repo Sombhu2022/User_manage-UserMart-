@@ -4,17 +4,30 @@ import ErrorPage from './views/error/ErrorPage'
 import Register from './views/auth/Register'
 import Login from './views/auth/Login'
 import Home from './views/Home/Home'
+import { useEffect } from 'react'
+
+import { useSelector } from 'react-redux'
+import useAuthActions  from './controllers/userControler'
+import Dashboard from './views/dashboard/Dashboard'
 
 
 
 function App() {
-
+  const { getUserAndUpdateState} = useAuthActions()
+  const { user , isAuthenticated} = useSelector(state => state.user)
+    
+   useEffect(()=>{
+      const res = getUserAndUpdateState()
+      console.log(res);
+      
+   },[isAuthenticated])
 
   return (
      <Router>
       <Routes>
         <Route path='/' element={<Layout/>}>
         <Route index element={<Home/>}/>
+        <Route path='/dashboard' element={<Dashboard/>}/>
         </Route>
       <Route path='/register' element={<Register/>}/>
       <Route path='/login' element={<Login/>}/>

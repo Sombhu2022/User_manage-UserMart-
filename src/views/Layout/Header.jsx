@@ -1,15 +1,31 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { CgDetailsMore } from "react-icons/cg";
 import { MdOutlineClose } from "react-icons/md";
 import { useState } from "react";
 import { BiLogInCircle } from "react-icons/bi";
+import { useSelector } from "react-redux";
+import useAuthActions from "../../controllers/userControler";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { user , isAuthenticated} = useSelector(state => state.user)
+  const navigate = useNavigate()
+
+  const { logoutUser } = useAuthActions()
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+   
+  console.log(isAuthenticated , user);
+  
+
+  const handleLogout = ()=>{
+    
+    const res = logoutUser(user.name)
+    console.log(res);
+    
+  }
 
   return (
     <header className="relative p-4 w-full flex justify-between items-center bg-white border border-gray-200 shadow-md">
@@ -17,12 +33,12 @@ const Header = () => {
         UserMart
       </h2>
       <nav className="flex items-center gap-4">
-        <NavLink
-          to={"/login"}
+        <button
+          onClick={isAuthenticated? ()=>handleLogout() : ()=>{navigate('/login')}}
           className="flex items-center font-semibold gap-2 px-4 py-2 rounded-full text-white bg-indigo-500 hover:bg-indigo-600 transition-colors"
         >
-          Login <BiLogInCircle />
-        </NavLink>
+          {isAuthenticated? "Logout":"Login"} <BiLogInCircle />
+        </button>
 
         <button
           onClick={toggleMenu}
