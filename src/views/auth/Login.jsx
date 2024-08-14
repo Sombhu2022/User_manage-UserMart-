@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FiInfo } from 'react-icons/fi'; // Import info icon from react-icons
 import { Link } from 'react-router-dom';
+import { loginUser } from '../../controllers/userControler';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -8,8 +9,9 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Login data:', { email, password });
-    // Submit the login data to your backend server
+    const res = loginUser({email , password})
+    console.log(res);
+    
   };
 
   return (
