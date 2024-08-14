@@ -1,98 +1,86 @@
+import { useDispatch } from "react-redux";
+import { clearUser, setUser } from "../redux/user/userSlice";
 
-const registerUser = ({
-    name,
-    email,
-    password,
-    address,
-    latitude,
-    longitude,
-}) => {
+const useAuthActions = () => {
+    const dispatch = useDispatch();
 
-    if (!name || !email || !password || !address || !latitude || !longitude) {
-        return { message: "all fields are required !, please fill up all fields" }
-    }
-    if (password.length < 8) {
-        return { message: "password must be 8 charecter or more!" }
-    }
+    const getUserAndUpdateState = () => {
+        try {
+            const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
 
-    try {
-
-        const userData = {
-            name,
-            email,
-            password,
-            address,
-            latitude,
-            longitude,
-        };
-
-        localStorage.setItem('user', JSON.stringify(userData));
-        localStorage.setItem('isAuthenticate', true)
-        const res = getUser()
-         // update state using redux
-        return { message: `wellcome ${name} , explore UserMart! . Your one-stop solution for all your product needs.` }
-
-    } catch (error) {
-
-        return { message: `somthing error , try again !` }
-
-    }
-
-
-}
-
-
-
-const loginUser = ({email , password})=>{
-    if(!email || !password){
-        return { message: "all fields are required !, please fill up all fields" }
-    }
-
-    try {
-        const user = JSON.parse(localStorage.getItem('user'))
-        if(user && user.email === email && user.password === password){
-            localStorage.setItem('isAuthenticate' , true)
-            const res = getUser()
-             // update state using redux
-            return { message: `wellcome back ${user.name} , continue your exploring .` , data:user }
-        }else{
-            return { message: `email or password not matched !` }
-
+            if (isAuthenticated) {
+                const user = JSON.parse(localStorage.getItem('user'));
+                dispatch(setUser(user));
+                return { message: 'User fetched!' , success:true };
+            } else {
+                return { message: 'User not authenticated, login now!', success:false };
+            }
+        } catch (error) {
+            return { message: 'Something went wrong, please try again!', success:false };
         }
-    } catch (error) {
-        return { message: `somthing error , try again !` }
-        
-    }
-}
+    };
 
 
-const logoutUser = (name)=>{
-    try {
-        localStorage.setItem('isAuthenticate' , false)
-         // update state using redux
-        return {message:`Goodbye, ${name}! You have successfully logged out of UserMart. We look forward to your return.`}
-    } catch (error) {
-        return { message: `somthing error , try again !` }
-        
-    }
-}
 
 
-const getUser = ()=>{
-    try {
-        const isAuthenticate = localStorage.getItem('isAuthenticate')
-
-        if(isAuthenticate){
-            const user = JSON.parse(localStorage.getItem())
-            // update state using redux
-            return {message:'user fatched ! '}
-        }else{
-            return {message:'user not authenticate , login now!'}
+    const registerUser = ({ name, email, password, address, latitude, longitude }) => {
+        if (!name || !email || !password || !address || !latitude || !longitude) {
+            return { message: 'All fields are required! Please fill up all fields.' , success:false };
         }
-    } catch (error) {
-        return { message: `somthing error , try again !` }
-        
-    }
-}
+        if (password.length < 8) {
+            return { message: 'Password must be 8 characters or more!' , success:false };
+        }
 
-export { registerUser , loginUser , logoutUser , getUser}
+        try {
+
+            const userData = { name, email, password, address, latitude, longitude };
+
+            localStorage.setItem('user', JSON.stringify(userData));
+            localStorage.setItem('isAuthenticated', true);
+
+            const res = getUserAndUpdateState();
+            return { message: `Welcome ${name}, explore UserMart! Your one-stop solution for all your product needs.` , success:true };
+        } catch (error) {
+            return { message: 'Something went wrong, please try again!' , success:false };
+        }
+    };
+
+
+
+
+    const loginUser = ({ email, password }) => {
+        if (!email || !password) {
+            return { message: 'All fields are required! Please fill up all fields.' , success:false };
+        }
+
+        try {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (user && user.email === email && user.password === password) {
+                localStorage.setItem('isAuthenticated', 'true');
+                const res = getUserAndUpdateState();
+                return { message: `Welcome back ${user.name}, continue your exploring.`, success:true };
+            } else {
+                return { message: 'Email or password not matched!' , success:false };
+            }
+        } catch (error) {
+            return { message: 'Something went wrong, please try again!' , success:false };
+        }
+    };
+
+
+
+
+    const logoutUser = (name) => {
+        try {
+            localStorage.setItem('isAuthenticated', false);
+            dispatch(clearUser());
+            return { message: `Goodbye, ${name}! You have successfully logged out of UserMart. We look forward to your return.` , success:true };
+        } catch (error) {
+            return { message: 'Something went wrong, please try again!' , success:false};
+        }
+    };
+
+    return { registerUser, loginUser, logoutUser, getUserAndUpdateState };
+};
+
+export default useAuthActions;
