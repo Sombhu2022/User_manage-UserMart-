@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { registerUser } from "../../controllers/userControler";
 
 function Register() {
   const [name, setName] = useState("");
@@ -25,15 +26,19 @@ function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form data:", {
-      name,
-      email,
-      password,
-      address,
-      latitude,
-      longitude,
-    });
-    // Submit the form data to your backend server
+    // register user
+   const res = registerUser({
+        name,
+        email,
+        password,
+        address,
+        latitude,
+        longitude,
+      })
+
+
+      console.log(res);
+      
   };
 
   return (
