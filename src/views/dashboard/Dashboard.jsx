@@ -17,7 +17,7 @@ function Dashboard() {
       <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-4xl">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-3xl font-bold text-gray-800">User Dashboard</h2>
-          <Link to="/edit-profile" className="text-indigo-600 hover:text-indigo-800">
+          <Link to="/dashboard" className="text-indigo-600 hover:text-indigo-800">
             <FaUserEdit size={24} />
           </Link>
         </div>

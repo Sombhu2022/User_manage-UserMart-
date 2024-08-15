@@ -11,7 +11,8 @@ import useAuthActions  from './controllers/userControler'
 import Dashboard from './views/dashboard/Dashboard'
 import ProductList from './views/products/ProductList'
 import ProductDetails from './views/products/ProductDetails'
-
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
@@ -24,7 +25,23 @@ function App() {
    },[isAuthenticated , status])
 
   return (
+    <>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
+
+
      <Router>
+    
       <Routes>
         <Route path='/' element={<Layout/>}>
         <Route index element={<Home/>}/>
@@ -38,7 +55,7 @@ function App() {
       </Routes>
 
      </Router>
-    
+     </>
   )
 }
 

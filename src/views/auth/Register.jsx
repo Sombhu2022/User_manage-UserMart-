@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useAuthActions from "../../controllers/userControler";
+import { toast } from "react-toastify";
 
 function Register() {
   const [name, setName] = useState("");
@@ -40,8 +41,12 @@ function Register() {
         longitude,
       })
 
-    if(res.success) navigate('/dashboard')
-      
+    if(res.success){
+      navigate('/dashboard')
+      toast.success(res.message) 
+    } else{
+      toast.error(res.message)
+    }
   };
 
   return (
