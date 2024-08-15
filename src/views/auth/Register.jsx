@@ -28,10 +28,10 @@ function Register() {
     );
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
     // register user
-   const res = registerUser({
+   const res = await registerUser({
         name,
         email,
         password,

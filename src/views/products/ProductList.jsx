@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { allProductsFetch } from '../../redux/product/productController';
 import { resetProductState } from '../../redux/product/productSlice';
+import IsNotAuth from '../../components/IsNotAuth';
 
 const ProductList = () => {
     const { isAuthenticated} = useSelector(state => state.user)
@@ -15,17 +16,17 @@ const ProductList = () => {
 
     useEffect(() => {
         
-        if(!isAuthenticated){
-            navigate('/login')
-            return
+        if(isAuthenticated){
+            dispatch(allProductsFetch())
         }
-        dispatch(allProductsFetch())
          
         return()=>{
             dispatch(resetProductState())
         }
 
       }, [dispatch , isAuthenticated]);
+
+
     
       if (status.productsFetch === 'pending') {
         return (
@@ -33,8 +34,11 @@ const ProductList = () => {
         );
       }
       if (error) return <p>{error}</p>;
-    
 
+      if(!isAuthenticated){
+        return(<IsNotAuth/>)
+      }
+   
 
   return (
     <div className="container mx-auto px-6 py-12">

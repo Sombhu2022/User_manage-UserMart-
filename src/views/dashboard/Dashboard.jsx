@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaUserEdit } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import DetailsItem from "../../components/DetailsItem";
 import { useSelector } from "react-redux";
+import IsNotAuth from "../../components/IsNotAuth";
 
 function Dashboard() {
-  const {user } = useSelector(state => state.user)
+  const {user , isAuthenticated } = useSelector(state => state.user)
+
+  if(!isAuthenticated){
+    return(<IsNotAuth/>)
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 p-6 flex flex-col items-center justify-center">

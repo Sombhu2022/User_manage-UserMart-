@@ -16,13 +16,12 @@ import ProductDetails from './views/products/ProductDetails'
 
 function App() {
   const { getUserAndUpdateState} = useAuthActions()
-  const { user , isAuthenticated} = useSelector(state => state.user)
+  const { user , isAuthenticated , status} = useSelector(state => state.user)
     
    useEffect(()=>{
       const res = getUserAndUpdateState()
-      console.log(res);
-      
-   },[isAuthenticated])
+      // console.log(res);
+   },[isAuthenticated , status])
 
   return (
      <Router>
@@ -43,4 +42,5 @@ function App() {
   )
 }
 
+export const baseUrl = 'https://fakestoreapi.com'
 export default App

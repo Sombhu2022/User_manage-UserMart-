@@ -1,11 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { baseUrl } from "../../App";
 
 
 
 export const allProductsFetch = createAsyncThunk('product/allProductsFetch',async()=>{
    
-        const {data} = await axios.get(`https://fakestoreapi.com/products`,{
+        const {data} = await axios.get(`${baseUrl}/products`,{
             headers: { "Content-Type": "application/json", },
         }
         );
@@ -16,7 +17,7 @@ export const allProductsFetch = createAsyncThunk('product/allProductsFetch',asyn
 
 export const productDetailsFetch = createAsyncThunk('product/productDetailsFetch' ,async(id)=>{
 
-    const res = await axios.get(`https://fakestoreapi.com/products/${id}`,{
+    const res = await axios.get(`${baseUrl}/products/${id}`,{
         headers: { "Content-Type": "application/json", },
     }
     );
