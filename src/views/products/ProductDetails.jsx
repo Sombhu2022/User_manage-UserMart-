@@ -35,7 +35,7 @@ const ProductDetails = () => {
   }
 
   if(!isAuthenticated){
-   return(<IsNotAuth/>)
+   return(<IsNotAuth message={'You are not authenticated. Please log in to view product details.'}/>)
   }
 
   return (

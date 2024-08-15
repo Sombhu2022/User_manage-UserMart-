@@ -36,7 +36,7 @@ const ProductList = () => {
       if (error) return <p>{error}</p>;
 
       if(!isAuthenticated){
-        return(<IsNotAuth/>)
+        return(<IsNotAuth  message={'You are not authenticated. Please log in to view product List.'}/>)
       }
    
 
