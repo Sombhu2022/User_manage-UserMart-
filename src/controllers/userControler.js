@@ -1,15 +1,17 @@
+// all authentication logic are here ....
+
 import { useDispatch } from "react-redux";
 import { clearUser, setUser } from "../redux/user/userSlice";
 
 const useAuthActions = () => {
     const dispatch = useDispatch();
 
-    const getUserAndUpdateState = () => {
+    const getUserAndUpdateState = async() => {
         try {
             const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
 
             if (isAuthenticated) {
-                const user = JSON.parse(localStorage.getItem('user'));
+                const user = await JSON.parse(localStorage.getItem('user'));
                 dispatch(setUser(user));
                 return { message: 'User fetched!' , success:true };
             } else {

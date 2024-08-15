@@ -9,6 +9,8 @@ import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import useAuthActions  from './controllers/userControler'
 import Dashboard from './views/dashboard/Dashboard'
+import ProductList from './views/products/ProductList'
+import ProductDetails from './views/products/ProductDetails'
 
 
 
@@ -28,6 +30,8 @@ function App() {
         <Route path='/' element={<Layout/>}>
         <Route index element={<Home/>}/>
         <Route path='/dashboard' element={<Dashboard/>}/>
+        <Route path='/products' element={<ProductList/>}/>
+        <Route path='/products/:id' element={<ProductDetails/>}/>
         </Route>
       <Route path='/register' element={<Register/>}/>
       <Route path='/login' element={<Login/>}/>
