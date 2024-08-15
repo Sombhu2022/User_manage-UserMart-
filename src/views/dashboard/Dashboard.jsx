@@ -9,7 +9,7 @@ function Dashboard() {
   const {user , isAuthenticated } = useSelector(state => state.user)
 
   if(!isAuthenticated){
-    return(<IsNotAuth/>)
+    return(<IsNotAuth  message={'You are not authenticated. Please log in to view User Dashboard.'}/>)
   }
 
   return (
