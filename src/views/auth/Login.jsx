@@ -13,10 +13,10 @@ function Login() {
 
   const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
 
-    const res = loginUser({email , password})
+    const res =await loginUser({email , password})
     
     console.log(res);
     if(res.success){

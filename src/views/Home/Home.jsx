@@ -6,8 +6,10 @@ import { blogData } from '../../assets/data/blogData';
 import BlogCard from '../../components/BlogCard';
 import AboutUs from './AboutUs';
 import WellcomeSection from './WellcomeSection';
+import { useSelector } from 'react-redux';
 
 function Home() {
+  const { isAuthenticated } = useSelector(state=>state.user)
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Hero Section */}
@@ -36,7 +38,7 @@ function Home() {
 
       {/* Continue Button */}
       <div className="container mx-auto py-12 px-6 md:px-12 text-center w-[200px]">
-        <Link to="/register" >
+        <Link to={isAuthenticated?"/dashboard":"/register"} >
           <button 
           className="custom-button">
             Continue
