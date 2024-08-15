@@ -13,7 +13,7 @@ This project is a React-based web application that provides a seamless experienc
 - **Login**: Users can log in with their email and password. The app verifies the credentials against the stored data and allows access to product pages upon successful authentication.
 - **Logout**: Users can log out, which clears their session and redirects them to the login page.
 
-![Authentication](.public/images/authentication.png)
+![Authentication](./public/images/authentication.png)
 
 ### 2. Product Listing 
 
