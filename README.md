@@ -3,7 +3,8 @@
 ## Overview
 
 This project is a React-based web application that provides a seamless experience for browsing products. The app features user authentication, infinite scrolling for product listings, and detailed product pages. It leverages Redux for state management and integrates with a fake API for product data.
-find your need:- https://usermart-demo.vercel.app/
+
+- **find your need:- https://usermart-demo.vercel.app/
 ## Features
 
 ### 1. User Authentication
@@ -14,10 +15,9 @@ find your need:- https://usermart-demo.vercel.app/
 
 ![Authentication](./images/authentication.png)
 
-### 2. Product Listing with Infinite Scroll
+### 2. Product Listing 
 
 - **Product List**: Authenticated users can view a list of products fetched from an API. The products are displayed in a grid format.
-- **Infinite Scroll**: As users scroll down the page, more products are automatically loaded, providing a seamless browsing experience.
 
 ![Product List](./images/product-list.png)
 
