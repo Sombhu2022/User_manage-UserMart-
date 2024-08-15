@@ -17,7 +17,7 @@ const ProductCard = ({ product }) => {
       <p className="text-gray-900 font-bold text-xl mb-2">${product.price}</p>
       
       {/* Truncate the description to 4 lines */}
-      <p className="text-gray-700 text-sm mb-4 line-clamp-4">
+      <p className="text-gray-700 text-sm mb-4 line-clamp-3">
         {product.description}
       </p>
       

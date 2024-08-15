@@ -3,6 +3,7 @@ import { FiInfo } from 'react-icons/fi'; // Import info icon from react-icons
 import { Link, useNavigate } from 'react-router-dom';
 import useAuthActions from '../../controllers/userControler';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -18,9 +19,13 @@ function Login() {
 
     const res =await loginUser({email , password})
     
-    console.log(res);
+    // console.log(res);
+
     if(res.success){
-        navigate('/dashboard')
+      navigate('/dashboard')
+      toast.success(res.message) 
+    } else{
+      toast.error(res.message)
     }
   };
 
