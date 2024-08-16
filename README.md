@@ -42,8 +42,8 @@ This project is a React-based web application that provides a seamless experienc
 
 ![Responsive View](./public/images/tablet_view.png)
 ![Login Page View](./public/images/login.png )
-![Product Page View](./public/images/product_details-mb.png )
-![Product List View](./public/images/product_list-mb.png )
+![Product Page View](./public/images/product-details-mb.png )
+![Product List View](./public/images/product-list-mb.png )
 
 ## Installation
 
