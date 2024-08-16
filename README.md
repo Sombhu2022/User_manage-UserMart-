@@ -37,8 +37,10 @@ This project is a React-based web application that provides a seamless experienc
 
 ### 5. Responsive Design
   - **Mobile and Tablet View**: The application is fully responsive, providing an optimized experience on any device, whether it's a mobile phone, tablet, or desktop. Users can easily browse products, view details, and interact with the app seamlessly across different screen sizes.
-![Responsive View](./public/images/tablet_view.png , ./public/images/login.png , ./public/images/product_details.png )
-
+![Responsive View](./public/images/tablet_view.png)
+![Login Page View](./public/images/login.png )
+![Product Page View](./public/images/product_details-mb.png )
+![Product List View](./public/images/product_list-mb.png )
 ## Installation
 
 1. Clone the repository:
