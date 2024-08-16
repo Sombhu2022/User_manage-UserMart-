@@ -19,7 +19,7 @@ This project is a React-based web application that provides a seamless experienc
 
 - **Product List**: Authenticated users can view a list of products fetched from an API. The products are displayed in a grid format.
 
-![Product List](./images/product-list.png)
+![Product List](./product-list.png)
 
 ### 3. Product Details Page
 
