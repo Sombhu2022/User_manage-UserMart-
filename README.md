@@ -13,26 +13,26 @@ This project is a React-based web application that provides a seamless experienc
 - **Login**: Users can log in with their email and password. The app verifies the credentials against the stored data and allows access to product pages upon successful authentication.
 - **Logout**: Users can log out, which clears their session and redirects them to the login page.
 
-![Authentication](./public/images/authentication.png)
+![Authentication](.public/images/authentication.png)
 
 ### 2. Product Listing 
 
 - **Product List**: Authenticated users can view a list of products fetched from an API. The products are displayed in a grid format.
 
-![Product List](./product-list.png)
+![Product List](.public/images/product-list.png)
 
 ### 3. Product Details Page
 
 - **Product Details**: Clicking on a product leads to a detailed view of the product, including an image, title, category, price, rating, and description.
 - **Similar Products Button**: A button on the product details page allows users to navigate back to the main product listing.
 
-![Product Details](./images/product-details.png)
+![Product Details](.public/images/product-details.png)
 
 ### 4. Authentication Check for Access
 
 - **Access Restriction**: Users must be authenticated to view product details. If not authenticated, they are redirected to the login page with a message.
 
-![Access Restriction](./images/access-restriction.png)
+![Access Restriction](.public/images/access-restriction.png)
 
 ## Installation
 
