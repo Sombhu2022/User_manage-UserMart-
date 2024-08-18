@@ -143,6 +143,7 @@ function Register() {
           <p className='mt-3 text-gray-700 '>if you are allrady register then 
             <Link to={'/login'} className='text-indigo-700 ' > Login </Link>
           </p>
+          <a className="text-indigo-700" href={`https://www.latlong.net/c/?lat=${latitude}&long=${longitude}`} target="_blank">Check your current location</a>
         </div>
       </div>
     </div>
