@@ -1,6 +1,9 @@
 import { useDispatch } from "react-redux";
 import { clearUser, setUser } from "../redux/user/userSlice";
 import bcrypt from "bcryptjs";
+   
+import axios from 'axios';
+import { message } from "antd";
 
 const useAuthActions = () => {
     const dispatch = useDispatch();
@@ -12,7 +15,15 @@ const useAuthActions = () => {
             if (isAuthenticated) {
                 const user = JSON.parse(localStorage.getItem('user'));
                 if (user) {
-                    dispatch(setUser(user));
+                    const currentAddress = JSON.parse(user.currentAddress)
+
+                    const updateUser = {
+                        ...user , 
+                        currentAddress:currentAddress
+                    }
+
+                    dispatch(setUser(updateUser));
+
                     return { message: 'User fetched!', success: true };
                 }
             } else {
@@ -34,8 +45,17 @@ const useAuthActions = () => {
         try {
             // Encrypt the password
             const hashedPassword = bcrypt.hashSync(password, 10);
-
-            const userData = { name, email, password: hashedPassword, address, latitude, longitude };
+            let currentAddress=''
+            const currentAddressFetch = await addCurrentAddress({latitude , longitude})
+            if(currentAddressFetch.success){
+                currentAddress = JSON.stringify(currentAddressFetch.data)
+                console.log(currentAddress);
+                
+            }
+            console.log("current addresss are",currentAddress);
+            console.log("current addresss are",currentAddressFetch);
+            
+            const userData = { name, email, password: hashedPassword, address, latitude, longitude , currentAddress };
 
             localStorage.setItem('user', JSON.stringify(userData));
             localStorage.setItem('isAuthenticated', true);
@@ -46,6 +66,49 @@ const useAuthActions = () => {
             return { message: 'Something went wrong, please try again!', success: false };
         }
     };
+
+
+
+
+
+    const addCurrentAddress = async({latitude , longitude})=>{
+        const apiKey = import.meta.env.VITE_GEOCODIFY_API_KEY;
+        const geoBaseUrl = import.meta.env.VITE_GEOCODIFY_BASE_URL;
+        const url = `${geoBaseUrl}/v2/reverse?api_key=${apiKey}&lat=${latitude}&lng=${longitude}`;
+      
+        try {
+             
+            const respose = await axios.get(url , {})
+            console.log("axios res",respose);
+            
+            if(respose.data.meta.code === 200){
+
+                const location = respose.data.response.features[0].properties;
+                const data = {
+                  country:location?.country,
+                  region:location?.region,
+                  county:location?.county,
+                  housenumber:location?.housenumber,
+                  label:location?.label,
+                  postalcode:location?.postalcode,
+                  street:location?.street
+                }
+               
+                return {success:true , message:'address fetche' , data}
+            }
+            
+          return { success:false , message:'somthing error'}
+        } catch (error) {
+            console.log(error);
+            return {success:false , message:'somthis error'}
+        }
+       
+        
+        }
+  
+   
+
+
 
     const loginUser = async ({ email, password }) => {
         if (!email || !password) {
@@ -83,7 +146,7 @@ const useAuthActions = () => {
         }
     };
 
-    return { registerUser, loginUser, logoutUser, getUserAndUpdateState };
+    return { registerUser, loginUser, logoutUser, getUserAndUpdateState , addCurrentAddress };
 };
 
 export default useAuthActions;

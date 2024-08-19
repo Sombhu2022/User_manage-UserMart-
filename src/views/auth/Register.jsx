@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useAuthActions from "../../controllers/userControler";
 import { toast } from "react-toastify";
+import { locBaseUrl } from "../../App";
+import Loader from "../../components/Loader";
 
 function Register() {
   const [name, setName] = useState("");
@@ -12,12 +14,13 @@ function Register() {
   const [longitude, setLongitude] = useState("");
   const [agreed, setAgreed] = useState(false);
 
-  const navigate = useNavigate()
+  const [loading , setLoading] = useState(false)
 
-  const { registerUser } = useAuthActions()
+  const navigate = useNavigate();
+
+  const { registerUser } = useAuthActions();
 
   useEffect(() => {
-
     navigator.geolocation.getCurrentPosition(
       (position) => {
         setLatitude(position.coords.latitude);
@@ -29,23 +32,32 @@ function Register() {
     );
   }, []);
 
-  const handleSubmit =async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // register user
-   const res = await registerUser({
-        name,
-        email,
-        password,
-        address,
-        latitude,
-        longitude,
-      })
+    setLoading(true)
+    const res = await registerUser({
+      name,
+      email,
+      password,
+      address,
+      latitude,
+      longitude,
+    });
 
-    if(res.success){
-      navigate('/dashboard')
-      toast.success(res.message) 
-    } else{
-      toast.error(res.message)
+    if(loading){
+      console.log("loading");
+      
+      return (<Loader/>)
+    }
+
+    if (res.success) {
+      setLoading(false)
+      navigate("/dashboard");
+      toast.success(res.message);
+    } else {
+      toast.error(res.message);
+      setLoading(false)
     }
   };
 
@@ -59,7 +71,8 @@ function Register() {
             Welcome to Our UserMart!
           </h2>
           <p className="text-white text-center">
-            Register to access exclusive features like Product list , Product Details and stay updated.
+            Register to access exclusive features like Product list , Product
+            Details and stay updated.
           </p>
         </div>
 
@@ -72,7 +85,7 @@ function Register() {
             <input
               type="text"
               placeholder="Name"
-              className='custom-input'
+              className="custom-input"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
@@ -80,7 +93,7 @@ function Register() {
             <input
               type="email"
               placeholder="Email"
-              className='custom-input'
+              className="custom-input"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -88,14 +101,14 @@ function Register() {
             <input
               type="password"
               placeholder="Password"
-              className='custom-input'
+              className="custom-input"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
             <textarea
               placeholder="Address Line : 123, MG Road, Bangalore, Karnataka, 560001, India"
-              className='custom-input'
+              className="custom-input"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
               required
@@ -104,7 +117,7 @@ function Register() {
             <input
               type="text"
               placeholder="Latitude"
-              className='custom-input'
+              className="custom-input"
               value={latitude}
               readOnly
               required
@@ -112,14 +125,14 @@ function Register() {
             <input
               type="text"
               placeholder="Longitude"
-              className='custom-input'
+              className="custom-input"
               value={longitude}
               readOnly
               required
             />
 
-             {/* Rules and Regulations Checkbox */}
-             <div className="checkbox-group">
+            {/* Rules and Regulations Checkbox */}
+            <div className="checkbox-group">
               <input
                 type="checkbox"
                 id="rules"
@@ -132,18 +145,24 @@ function Register() {
               </label>
             </div>
 
-            <button
-              type="submit"
-              className="custom-button"
-            >
+            <button type="submit" className="custom-button">
               Register
-
             </button>
           </form>
-          <p className='mt-3 text-gray-700 '>if you are allrady register then 
-            <Link to={'/login'} className='text-indigo-700 ' > Login </Link>
+          <p className="mt-3 text-gray-700 ">
+            if you are allrady register then
+            <Link to={"/login"} className="text-indigo-700 ">
+              {" "}
+              Login{" "}
+            </Link>
           </p>
-          <a className="text-indigo-700" href={`https://www.latlong.net/c/?lat=${latitude}&long=${longitude}`} target="_blank">Check your current location</a>
+          <a
+            className="text-indigo-700"
+            href={`${locBaseUrl}/c/?lat=${latitude}&long=${longitude}`}
+            target="_blank"
+          >
+            Check your current location
+          </a>
         </div>
       </div>
     </div>
