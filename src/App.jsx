@@ -23,6 +23,8 @@ function App() {
     
    useEffect(()=>{
       const res = getUserAndUpdateState()
+     
+        
       // console.log(res);
    },[isAuthenticated , status])
 
@@ -41,7 +43,7 @@ function App() {
         theme="colored"
       />
 
-
+   
      <Router>
     
       <Routes>
@@ -61,5 +63,6 @@ function App() {
   )
 }
 
-export const baseUrl = 'https://fakestoreapi.com'
+export const baseUrl = import.meta.env.VITE_BACKEND_BASE_URL
+export const locBaseUrl = import.meta.env.VITE_LATLONG_BASE_URL
 export default App
